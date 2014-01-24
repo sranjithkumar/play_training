@@ -1,0 +1,24 @@
+@(users: List[models.User])
+@import helper._
+
+@if(flash.get("success") !=null && flash.get("success")!=""){
+          <h3>@flash.get("success")</h3>
+          }
+Total User(s) : @users.size()
+<ul id="userlist">
+        @for(user <- users) {
+            <li>
+                User Name : @user.getFullName
+				Company : @user.getCompany
+				Email : @user.getEmail
+				
+				@form(routes.User.delete(user.getId)){
+       				<input type="submit" value="Delete"></input>
+       			}
+       			
+       			@form(routes.User.read(user.getId())){
+					<input type="submit" value="Edit">
+				}
+            </li>
+        }
+    </ul>
